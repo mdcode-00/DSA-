@@ -1,6 +1,10 @@
 // Function: Find common strings with the least index sum between two lists
 // LeetCode 599 Pattern
 
+
+
+////////////////////////////////////////// 1 //////////////////////////////////////////
+
 function isCommen(list1, list2) {
   let result = [];
   let map = new Map();
@@ -39,7 +43,7 @@ console.log(isCommen(['happy', 'sad', 'good'], ['sad', 'happy', 'good']));
 
 
 
-
+//////////////////////////////////////// 2 //////////////////////////////////////////
 
 
 
@@ -67,3 +71,75 @@ function isTwoSum(num, target) {
 // Example:
 console.log(isTwoSum([7, 11, 15, 2], 9));
 // Output: [0, 3]  (7 + 2 = 9)
+
+
+
+
+//////////////////////////////////////// 3 //////////////////////////////////////////
+
+
+
+/**
+ *  Best Time to Buy and Sell Stock (Single Transaction)
+ * ------------------------------------------------------
+
+ * Goal:
+ * -----------
+ * Find the maximum profit you can achieve (you must buy before you sell).
+ *
+ 
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ */
+
+const bestTime1 = (price) => {
+  let everyLoop = 0; // current profit window
+  let result = 0;    // max profit found so far
+
+  for (let i = 0; i < price.length - 1; i++) {
+    // Update current profit 
+    everyLoop = Math.max(0, everyLoop - price[i] + price[i + 1]);
+
+    // Update maximum profit if current window gives better result
+    result = Math.max(result, everyLoop);
+  }
+
+  return result;
+};
+
+
+console.log(bestTime1([7, 1, 5, 3, 6, 4])); // Output: 5
+
+
+
+
+///////////////////////////////////////// 4 //////////////////////////////////////////
+
+
+
+
+/**
+ * 📈 Best Time to Buy and Sell Stock II
+ * ------------------------------------
+ 
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ */
+
+const bestTime = (price) => {
+  let profit = 0;
+
+  for (let i = 0; i < price.length - 1; i++) {
+    // Only add profit if the next day's price is higher
+    const dailyProfit = Math.max(0, price[i + 1] - price[i]);
+
+    profit += dailyProfit;
+  }
+
+  return profit;
+};
+
+
+console.log(bestTime([7, 1, 5, 3, 6, 4])); // Output: 7 (Buy 1→Sell 5, Buy 3→Sell 6)
+console.log(bestTime([1, 2, 3, 4, 5]));    // Output: 4 (Buy 1→Sell 5)
+console.log(bestTime([7, 6, 4, 3, 1]));    // Output: 0 (No profit possible)
