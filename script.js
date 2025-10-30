@@ -143,3 +143,40 @@ const bestTime = (price) => {
 console.log(bestTime([7, 1, 5, 3, 6, 4])); // Output: 7 (Buy 1→Sell 5, Buy 3→Sell 6)
 console.log(bestTime([1, 2, 3, 4, 5]));    // Output: 4 (Buy 1→Sell 5)
 console.log(bestTime([7, 6, 4, 3, 1]));    // Output: 0 (No profit possible)
+
+
+
+/////////////////////////////////////// 5 //////////////////////////////////////////
+
+
+// Check all possible subarrays and find the one with the maximum sum.
+
+function maxNum(num) {
+  // Initialize result with the first element
+  let result = num[0];
+
+  // Outer loop → start of subarray
+  for (let i = 0; i < num.length; i++) {
+    let prefix = 0; // Tracks sum of current subarray
+
+    // Inner loop → end of subarray
+    for (let j = i; j < num.length; j++) {
+      prefix = num[j] + prefix; // Add current number
+      console.log("Current prefix sum:", prefix);
+
+      // Update result if we found a bigger sum
+      result = Math.max(prefix, result);
+    }
+  }
+
+
+  return result;
+}
+
+
+
+// Output: 6 (from subarray [4, -1, 2, 1])
+console.log(maxNum([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+
+
+
