@@ -208,3 +208,44 @@ console.log(moveZero([0, 1, 0, 3, 12]));
 
 
 
+
+//////////////////////////////////////// 7 //////////////////////////////////////////
+
+
+//  Container With Most Water — LeetCode #11
+// Find two lines that together hold the most water between them.
+
+
+function maxWaterContain(h) {
+  let left = 0;               // Left pointer
+  let right = h.length - 1;   // Right pointer
+  let result = 0;             // Stores the maximum water found
+
+  // Move both pointers towards each other
+  while (left < right) {
+    // Find the smaller height (this limits the water level)
+    let lowHeight = Math.min(h[left], h[right]);
+
+    // Calculate the width (distance between left and right)
+    let width = right - left;
+
+    // Calculate the area (water contained)
+    let containWater = lowHeight * width;
+
+    // Update result if we found a bigger area
+    result = Math.max(result, containWater);
+
+    // Move the pointer pointing to the smaller height inward
+    if (h[right] < h[left]) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+
+
+  return result;
+}
+
+// Output: 49
+console.log(maxWaterContain([1, 8, 6, 2, 5, 4, 8, 3, 7]));
