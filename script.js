@@ -180,3 +180,31 @@ console.log(maxNum([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 
 
 
+//////////////////////////////////////// 6 //////////////////////////////////////////
+
+
+// Move Zeroes — LeetCode #283
+
+function moveZero(num) {
+  let left = 0; // Pointer for the position of the next non-zero element
+
+  // Iterate through the array using 'right' pointer
+  for (let right = 0; right < num.length; right++) {
+    // If we find a non-zero number
+    if (num[right] !== 0) {
+      // Swap current element with the 'left' pointer position
+      [num[right], num[left]] = [num[left], num[right]];
+      left++; // Move the left pointer forward
+    }
+  }
+
+
+  return num;
+}
+
+
+// Output: [1,3,12,0,0]
+console.log(moveZero([0, 1, 0, 3, 12]));
+
+
+
