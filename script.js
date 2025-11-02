@@ -249,3 +249,40 @@ function maxWaterContain(h) {
 
 // Output: 49
 console.log(maxWaterContain([1, 8, 6, 2, 5, 4, 8, 3, 7]));
+
+
+
+
+//////////////////////////////////////// 8 //////////////////////////////////////////
+
+
+
+// Merge Sorted Array — LeetCode #88
+
+
+function mergeSort(num1, m, num2, n) {
+  let i = m - 1;                // Last index of the initialized part of num1
+  let j = n - 1;                // Last index of num2
+  let totalLength = m + n - 1;  // Last index of the full array (nums1 has enough space)
+
+  // Start merging from the end
+  while (j >= 0) {
+    // If num1 has elements left and its current element is bigger
+    if (i >= 0 && num1[i] > num2[j]) {
+      num1[totalLength] = num1[i];
+      i--; // Move pointer i backward
+    } else {
+      // Otherwise, copy num2[j]
+      num1[totalLength] = num2[j];
+      j--; // Move pointer j backward
+    }
+
+    totalLength--; // Move the fill position backward
+  }
+
+  return num1;
+}
+
+
+// Output: [1,2,2,3,5,6]
+console.log(mergeSort([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
