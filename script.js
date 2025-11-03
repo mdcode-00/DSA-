@@ -286,3 +286,56 @@ function mergeSort(num1, m, num2, n) {
 
 // Output: [1,2,2,3,5,6]
 console.log(mergeSort([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+
+
+//////////////////////////////////////// 9 //////////////////////////////////////////
+
+
+
+
+// Three Sum — LeetCode #15
+// Find all unique triplets in the array that sum up to zero.
+
+function threeSum(num) {
+  num.sort((a, b) => a - b); // Sort array to use two-pointer approach
+  let result = [];
+
+  // Loop through each number (fix one element at a time)
+  for (let i = 0; i < num.length - 2; i++) {
+    // Skip duplicate values for i
+    if (i > 0 && num[i] === num[i - 1]) continue;
+
+    let left = i + 1;             // Start pointer
+    let right = num.length - 1;   // End pointer
+
+    // Move pointers towards each other
+    while (left < right) {
+      let sum = num[i] + num[left] + num[right];
+      console.log("Sum:", sum);
+
+      if (sum === 0) {
+        // Found a valid triplet
+        result.push([num[i], num[left], num[right]]);
+
+        // Skip duplicates for left and right
+        while (num[left] === num[left + 1]) left++;
+        while (num[right] === num[right - 1]) right--;
+
+        left++;
+        right--;
+      } else if (sum < 0) {
+        // If sum too small, move left pointer forward
+        left++;
+      } else {
+        // If sum too large, move right pointer backward
+        right--;
+      }
+    }
+  }
+
+  return result;
+}
+
+
+// Output: [[-1,-1,2],[-1,0,1]]
+console.log(threeSum([-1, 0, 1, 2, -1, -4]));
