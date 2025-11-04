@@ -339,3 +339,42 @@ function threeSum(num) {
 
 // Output: [[-1,-1,2],[-1,0,1]]
 console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
+
+//////////////////////////////////////// 10 //////////////////////////////////////////
+
+
+// Maximum Product Subarray — LeetCode #152
+// Find the contiguous subarray within an array that has the largest product.
+
+function subarray(nums) {
+  // Initialize values
+  let minSoFar = nums[0];   // Tracks the smallest product so far (negative could become max later)
+  let maxSoFar = nums[0];   // Tracks the largest product so far
+  let result = nums[0];     // Tracks the global maximum product
+
+  for (let i = 1; i < nums.length; i++) {
+    const curr = nums[i];
+    n
+    // because multiplying by a negative flips their signs
+    if (curr < 0) [maxSoFar, minSoFar] = [minSoFar, maxSoFar];
+
+    // Calculate the max and min product ending at current index
+    maxSoFar = Math.max(curr, maxSoFar * curr);
+    minSoFar = Math.min(curr, minSoFar * curr);
+
+    // Update result with the global maximum product
+    result = Math.max(result, maxSoFar);
+
+    // Debug log for each iteration
+    console.log(`i=${i}, curr=${curr}, max=${maxSoFar}, min=${minSoFar}, result=${result}`);
+  }
+
+
+  return result;
+}
+
+
+console.log(subarray([2, 3, -2, 4]));   // Output: 6   → (2 × 3)
+console.log(subarray([-2, 0, -1]));     // Output: 0   → (single element 0)
+console.log(subarray([-2, 3, -4]));     // Output: 24  → (-2 × 3 × -4)
