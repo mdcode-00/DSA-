@@ -378,3 +378,32 @@ function subarray(nums) {
 console.log(subarray([2, 3, -2, 4]));   // Output: 6   → (2 × 3)
 console.log(subarray([-2, 0, -1]));     // Output: 0   → (single element 0)
 console.log(subarray([-2, 3, -4]));     // Output: 24  → (-2 × 3 × -4)
+
+
+
+//////////////////////////////////////// 11 //////////////////////////////////////////
+
+/////////////////////////////String ////////////////////////////////////////
+
+
+// Reverse String — Two Pointer Approach
+// LeetCode #344 — Reverse the array of characters in-place.
+
+function reverseStr(str) {
+  let left = 0;
+  let right = str.length - 1;
+
+  // Swap characters while moving both pointers inward
+  while (left < right) {
+    let temp = str[left];
+    str[left] = str[right];
+    str[right] = temp;
+
+    left++;
+    right--;
+  }
+
+  return str;
+}
+
+console.log(reverseStr(["h", "e", "l", "l", "o"])); // ["o","l","l","e","h"]
