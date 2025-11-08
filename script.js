@@ -407,3 +407,38 @@ function reverseStr(str) {
 }
 
 console.log(reverseStr(["h", "e", "l", "l", "o"])); // ["o","l","l","e","h"]
+
+
+
+//////////////////////////////////////// 12 //////////////////////////////////////////
+
+
+
+// Valid Palindrome — LeetCode #125
+// Check if a string reads the same forward and backward,
+// ignoring punctuation, spaces, and letter case.
+
+function isPalindrom(str) {
+  // Remove all non-alphanumeric characters + convert to lowercase
+  let valid = str.trim().replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+
+  let left = 0;
+  let right = valid.length - 1;
+
+  // Use two-pointer approach to compare characters
+  while (left < right) {
+    // If mismatch found → not a palindrome
+    if (valid[left] !== valid[right]) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+  return true;
+}
+
+// ✅ Test cases
+console.log(isPalindrom("A man, a plan, a canal: Panama")); // true
+console.log(isPalindrom("race a car"));                     // false
+console.log(isPalindrom(" "));                              // true
