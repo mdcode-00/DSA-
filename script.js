@@ -442,3 +442,39 @@ function isPalindrom(str) {
 console.log(isPalindrom("A man, a plan, a canal: Panama")); // true
 console.log(isPalindrom("race a car"));                     // false
 console.log(isPalindrom(" "));                              // true
+
+
+//////////////////////////////////////// 13 //////////////////////////////////////////
+
+
+
+//Valid Anagram — LeetCode #242
+// Check if two strings contain the same characters with the same frequencies.
+
+function isAnagram(s, t) {
+  // If lengths differ → cannot be an anagram
+  if (s.length !== t.length) return false;
+
+  let countS = {}; // Frequency map for string s
+  let countT = {}; // Frequency map for string t
+
+  // Build frequency maps for both strings
+  for (let i = 0; i < s.length; i++) {
+    countS[s[i]] = (countS[s[i]] || 0) + 1;   // Count characters in s
+    countT[t[i]] = (countT[t[i]] || 0) + 1;   // Count characters in t
+  }
+
+  // Compare the frequency of every character
+  for (const key in countS) {
+    if (countS[key] !== countT[key]) {
+      return false; // Mismatch means not an anagram
+    }
+  }
+
+  return true;
+}
+
+
+console.log(isAnagram("anagram", "nagaram")); // true
+console.log(isAnagram("rat", "car"));         // false
+console.log(isAnagram("aacc", "ccac"));       // false
