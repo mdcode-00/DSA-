@@ -478,3 +478,39 @@ function isAnagram(s, t) {
 console.log(isAnagram("anagram", "nagaram")); // true
 console.log(isAnagram("rat", "car"));         // false
 console.log(isAnagram("aacc", "ccac"));       // false
+
+
+//////////////////////////////////////// 14 //////////////////////////////////////////
+
+
+//  Group Anagrams — LeetCode #49
+// Group words that are anagrams of each other using character frequency counting.
+
+function groupAnagrams(strs) {
+  let res = {}; // Object to store groups of anagrams
+
+  // Loop through each string in the array
+  for (let s of strs) {
+    // Initialize an array of size 26 to count each letter (a-z)
+    const count = new Array(26).fill(0);
+
+    // Count the frequency of each character in the string
+    for (let c of s) {
+      count[c.charCodeAt(0) - 'a'.charCodeAt(0)]++;
+    }
+
+    // Convert frequency array into a unique string key
+    const key = count.join(',');
+
+    // If this key doesn’t exist, create a new array for this group
+    if (!res[key]) res[key] = [];
+
+    // Push the current string into its corresponding anagram group
+    res[key].push(s);
+  }
+
+  return Object.values(res);
+}
+
+console.log(groupAnagrams(["act", "pots", "tops", "cat", "stop", "hat"]));
+// Output: [ [ 'act', 'cat' ], [ 'pots', 'tops', 'stop' ], [ 'hat' ] ]
