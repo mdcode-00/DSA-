@@ -514,3 +514,39 @@ function groupAnagrams(strs) {
 
 console.log(groupAnagrams(["act", "pots", "tops", "cat", "stop", "hat"]));
 // Output: [ [ 'act', 'cat' ], [ 'pots', 'tops', 'stop' ], [ 'hat' ] ]
+
+
+//////////////////////////////////////// 15 //////////////////////////////////////////
+
+
+//Top K Frequent Elements — LeetCode #347
+// Find the k most frequent elements in an integer array using a bucket sort approach.
+
+function topKFrequent(nums, k) {
+  let count = {}; // Frequency map
+  let freq = Array.from({ length: nums.length + 1 }, () => []); // Buckets based on frequency
+
+  // Count the frequency of each number
+  for (let n of nums) {
+    count[n] = (count[n] || 0) + 1;
+  }
+
+  //Place numbers into frequency buckets
+  for (let n in count) {
+    freq[count[n]].push(parseInt(n)); // Push the number into the bucket matching its frequency
+  }
+
+  //Collect the k most frequent elements (from highest frequency down)
+  const res = [];
+  for (let i = freq.length - 1; i > 0; i--) {
+    for (let n of freq[i]) {
+      res.push(n);
+      if (res.length === k) return res; // Stop once we have k elements
+    }
+  }
+}
+
+
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2)); // Output: [1, 2]
+console.log(topKFrequent([4, 4, 4, 6, 6, 7, 7, 7, 7], 1)); // Output: [7]
+console.log(topKFrequent([5, 5, 5, 6, 7, 8, 8], 3)); // Output: [5, 8, 6] (depending on frequency)
