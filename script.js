@@ -550,3 +550,61 @@ function topKFrequent(nums, k) {
 console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2)); // Output: [1, 2]
 console.log(topKFrequent([4, 4, 4, 6, 6, 7, 7, 7, 7], 1)); // Output: [7]
 console.log(topKFrequent([5, 5, 5, 6, 7, 8, 8], 3)); // Output: [5, 8, 6] (depending on frequency)
+
+
+
+//////////////////////////////////////// 16 //////////////////////////////////////////
+
+
+
+// Encode and Decode Strings — LeetCode #271
+// Design an algorithm to encode a list of strings to a single string,
+// and decode the single string back to the original list.
+
+function encode(strs) {
+  let res = '';
+
+  // For each string, store its length, a '#' delimiter, and the string itself
+  for (let s of strs) {
+    res += s.length + '#' + s;
+  }
+
+  return res;
+}
+
+
+console.log(encode(["neet", "code", "love", "you"]));
+// Output: "4#neet4#code4#love3#you"
+
+
+function decode(str) {
+  let res = [];
+  let i = 0;
+
+  while (i < str.length) {
+    let j = i;
+
+    // Move j forward until we find the '#' separator
+    while (str[j] !== '#') {
+      j++;
+    }
+
+    // Extract the number before '#' to know the word length
+    let length = parseInt(str.substring(i, j));
+
+    // Move past '#' and extract the word using its length
+    i = j + 1;
+    j = i + length;
+
+    res.push(str.substring(i, j));
+
+    // Move i to the start of the next encoded word
+    i = j;
+  }
+
+  return res;
+}
+
+
+console.log(decode("4#neet4#code4#love3#you"));
+// Output: ["neet", "code", "love", "you"]
