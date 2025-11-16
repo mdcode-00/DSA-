@@ -608,3 +608,34 @@ function decode(str) {
 
 console.log(decode("4#neet4#code4#love3#you"));
 // Output: ["neet", "code", "love", "you"]
+
+
+//////////////////////////////////////// 17 //////////////////////////////////////////
+
+// Product of Array Except Self — LeetCode #238
+// Return an array where each element is the product of all numbers
+// in the array except the number at the current index — without using division.
+
+function productExceptSelf(nums) {
+  // Initialize result array with 1s (prefix base value)
+  let result = new Array(nums.length).fill(1);
+
+  // Prefix pass: multiply by all elements on the left
+  for (let i = 1; i < nums.length; i++) {
+    result[i] = nums[i - 1] * result[i - 1];
+  }
+
+  // Postfix pass: multiply by all elements on the right
+  let postfix = 1;
+  for (let j = nums.length - 1; j >= 0; j--) {
+    result[j] *= postfix;
+    postfix *= nums[j];
+  }
+
+  return result;
+}
+
+
+console.log(productExceptSelf([1, 2, 4, 6])); // Output: [48, 24, 12, 8]
+console.log(productExceptSelf([2, 3, 4, 5])); // Output: [60, 40, 30, 24]
+console.log(productExceptSelf([-1, 0, 1, 2, 3])); // Output: [0,6,0,0,0]
