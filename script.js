@@ -639,3 +639,52 @@ function productExceptSelf(nums) {
 console.log(productExceptSelf([1, 2, 4, 6])); // Output: [48, 24, 12, 8]
 console.log(productExceptSelf([2, 3, 4, 5])); // Output: [60, 40, 30, 24]
 console.log(productExceptSelf([-1, 0, 1, 2, 3])); // Output: [0,6,0,0,0]
+
+
+
+///////////////////////////////////////// 18 //////////////////////////////////////////
+
+
+//Longest Consecutive Sequence — LeetCode #128
+// Find the length of the longest consecutive sequence in an unsorted array.
+
+function longestConsecutive(nums) {
+  let longest = 0;
+  let map = new Map();
+
+  // Initialize map with each number marked as "unused" (false)
+  nums.forEach(n => {
+    map.set(n, false);
+  });
+
+  // Iterate through each number and expand both forward and backward
+  for (let i = 0; i < nums.length; i++) {
+    let count = 1;
+
+    // Expand forward sequence
+    let next = nums[i] + 1;
+    while (map.has(next) && map.get(next) === false) {
+      count++;
+      map.set(next, true);
+      next++;
+    }
+
+    // Expand backward sequence
+    let prev = nums[i] - 1;
+    while (map.has(prev) && map.get(prev) === false) {
+      count++;
+      map.set(prev, true);
+      prev--;
+    }
+
+    // Track the maximum sequence length
+    longest = Math.max(longest, count);
+  }
+
+  return longest;
+}
+
+
+console.log(longestConsecutive([2, 20, 4, 10, 3, 4, 5])); // Output: 4  (sequence: 2,3,4,5)
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));   // Output: 4  (sequence: 1,2,3,4)
+console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));   // Output: 9  (sequence: 0-8)
