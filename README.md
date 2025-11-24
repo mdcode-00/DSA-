@@ -1,27 +1,3 @@
-# DSA-
+## 🚀 Inspiration & Dedication
 
-1. # Common Strings Finder (LeetCode 599 Pattern)
-
-A simple JavaScript program that finds **common strings between two lists** with the **least index sum**.
-
----
-
-## Example
-
-```js
-isCommen(["happy", "sad", "good"], ["sad", "happy", "good"]);
-// Output: ['sad', 'happy']
-```
-
-# 🎯 Two Sum Finder (LeetCode 1)
-
-Finds two numbers in an array that add up to a target value and returns their indexes.
-
----
-
-## 🚀 Example
-
-```js
-isTwoSum([7, 11, 15, 2], 9);
-// Output: [0, 3]
-```
+**“My Data Structures & Algorithms journey is a commitment to growth, discipline, and logical thinking. I’m not just learning to solve problems, I’m training my mind to analyze, break down, and build solutions with clarity and confidence. This journey has no final destination — only continuous improvement, curiosity, and evolution. I’m still learning, still exploring, and still growing.”**
