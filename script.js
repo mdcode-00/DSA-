@@ -688,3 +688,38 @@ function longestConsecutive(nums) {
 console.log(longestConsecutive([2, 20, 4, 10, 3, 4, 5])); // Output: 4  (sequence: 2,3,4,5)
 console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));   // Output: 4  (sequence: 1,2,3,4)
 console.log(longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]));   // Output: 9  (sequence: 0-8)
+
+
+
+
+///////////////////////////////////////// 19 //////////////////////////////////////////
+
+// Best Time to Buy and Sell Stock — LeetCode #121
+// Find the maximum profit from a single buy-sell transaction.
+// You must buy before you sell.
+
+function maxProfit(prices) {
+  let maxProfit = 0;
+
+  let left = 0;   // Buy pointer
+  let right = 1;  // Sell pointer
+
+  // Slide the window across the array
+  while (right < prices.length) {
+    // If selling price is higher → profit possible
+    if (prices[left] < prices[right]) {
+      maxProfit = Math.max(maxProfit, prices[right] - prices[left]);
+    } else {
+      // Move buy pointer to the cheaper price
+      left = right;
+    }
+
+    right++;
+  }
+
+  return maxProfit;
+}
+
+
+console.log(maxProfit([10, 1, 5, 6, 7, 1])); // Output: 6  (Buy 1 → Sell 7)
+console.log(maxProfit([10, 8, 7, 5, 2]));    // Output: 0  (No profit possible)
