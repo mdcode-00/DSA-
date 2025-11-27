@@ -723,3 +723,38 @@ function maxProfit(prices) {
 
 console.log(maxProfit([10, 1, 5, 6, 7, 1])); // Output: 6  (Buy 1 → Sell 7)
 console.log(maxProfit([10, 8, 7, 5, 2]));    // Output: 0  (No profit possible)
+
+
+/////////////////////////////////////20////////////////////////////////////////////////
+
+// Longest Repeating Character Replacement — LeetCode #424
+// Find the length of the longest substring that can be turned into repeating characters
+// by replacing at most k characters.
+
+function characterReplacement(s, k) {
+  let count = new Map(); // Frequency map for characters in window
+  let left = 0;
+  let maxFreq = 0; // Highest character frequency in the current window
+  let result = 0;
+
+  // Expand window with right pointer
+  for (let right = 0; right < s.length; right++) {
+    count.set(s[right], (count.get(s[right]) || 0) + 1);
+    maxFreq = Math.max(maxFreq, count.get(s[right]));
+
+    // If replacements needed > k → shrink window
+    while (right - left + 1 - maxFreq > k) {
+      count.set(s[left], count.get(s[left]) - 1);
+      left++;
+    }
+
+    // Track longest valid window
+    result = Math.max(result, right - left + 1);
+  }
+
+  return result;
+}
+
+console.log(characterReplacement("ABAB", 2));     // Output: 4
+console.log(characterReplacement("AABABBA", 1));  // Output: 4
+console.log(characterReplacement("AAAA", 2));     // Output: 4
