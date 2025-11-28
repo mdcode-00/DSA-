@@ -758,3 +758,67 @@ function characterReplacement(s, k) {
 console.log(characterReplacement("ABAB", 2));     // Output: 4
 console.log(characterReplacement("AABABBA", 1));  // Output: 4
 console.log(characterReplacement("AAAA", 2));     // Output: 4
+
+
+
+
+/////////////////////////////////////21////////////////////////////////////////////////
+
+
+
+// Minimum Window Substring — LeetCode #76
+// Find the smallest substring of s that contains all characters of t (including frequency).
+
+function minWindow(s, t) {
+  if (t === '') return '';
+
+  let countT = {};   // Required character frequency from t
+  let window = {};   // Current window character frequency
+
+  // Build frequency map for t
+  for (let c of t) {
+    countT[c] = (countT[c] || 0) + 1;
+  }
+
+  let have = 0;
+  let need = Object.keys(countT).length;
+
+  let res = [-1, -1];
+  let resLen = Infinity;
+  let left = 0;
+
+  // Expand sliding window with right pointer
+  for (let right = 0; right < s.length; right++) {
+    let c = s[right];
+    window[c] = (window[c] || 0) + 1;
+
+    // If this character frequency matches t's requirement
+    if (countT[c] && window[c] === countT[c]) {
+      have++;
+    }
+
+    // When we have all required characters, try to shrink window
+    while (have === need) {
+      // Update result if smaller window found
+      if (right - left + 1 < resLen) {
+        res = [left, right];
+        resLen = right - left + 1;
+      }
+
+      // Pop from the left of window
+      window[s[left]]--;
+      if (countT[s[left]] && window[s[left]] < countT[s[left]]) {
+        have--;
+      }
+
+      left++; // shrink window
+    }
+  }
+
+  return resLen === Infinity ? '' : s.slice(res[0], res[1] + 1);
+}
+
+
+console.log(minWindow("ADOBECODEBANC", "ABC")); // Output: "BANC"
+console.log(minWindow("a", "a"));               // Output: "a"
+console.log(minWindow("a", "aa"));              // Output: ""
