@@ -822,3 +822,42 @@ function minWindow(s, t) {
 console.log(minWindow("ADOBECODEBANC", "ABC")); // Output: "BANC"
 console.log(minWindow("a", "a"));               // Output: "a"
 console.log(minWindow("a", "aa"));              // Output: ""
+
+
+
+/////////////////////////////////////22////////////////////////////////////////////////
+
+// Checks if parentheses/brackets/braces are valid and properly nested
+var isValid = function (s) {
+
+  // Map closing brackets to their corresponding opening bracket
+  let check = {
+    '}': '{',
+    ')': '(',
+    ']': '['
+  };
+
+  let stack = [];
+
+  for (let c of s) {
+    // If character is a closing bracket
+    if (check[c]) {
+      // Check if top of stack matches required opening bracket
+      if (stack.length > 0 && stack[stack.length - 1] === check[c]) {
+        stack.pop();
+      } else {
+        return false; // Mismatch
+      }
+    } else {
+      // It's an opening bracket → push to stack
+      stack.push(c);
+    }
+  }
+
+  // Valid only if stack is empty
+  return stack.length === 0;
+};
+
+// Input: s = "[]" == Output: true
+// Input: s = "([{}])" === Output: true
+// Input: s = "[(])" === Output: false
