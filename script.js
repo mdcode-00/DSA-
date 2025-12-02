@@ -860,4 +860,39 @@ var isValid = function (s) {
 
 // Input: s = "[]" == Output: true
 // Input: s = "([{}])" === Output: true
-// Input: s = "[(])" === Output: false
+// Input: s = "[(])" === Output: false>
+
+/////////////////////////////////////23////////////////////////////////////////////////
+
+///////////////////////////////////Binary Search///////////////////////////////////////
+
+// Find Minimum in Rotated Sorted Array — LeetCode #153
+// Using Binary Search (O(log n))
+
+function findMin(nums) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  // We search until both pointers meet
+  while (left < right) {
+
+    // Midpoint calculation
+    let mid = Math.floor(left + (right - left) / 2);
+
+    // If middle element is greater than the right element,
+    // it means the minimum is in the RIGHT half.
+    if (nums[mid] > nums[right]) {
+      left = mid + 1;
+    } else {
+      // Otherwise, the minimum is in the LEFT half (including mid)
+      right = mid;
+    }
+  }
+
+  // Left will land exactly on the minimum element
+  return nums[left];
+}
+
+console.log(findMin([3, 4, 5, 1, 2])); // 1
+console.log(findMin([4, 5, 6, 7, 0, 1, 2])); // 0
+console.log(findMin([11, 13, 15, 17])); // 11
