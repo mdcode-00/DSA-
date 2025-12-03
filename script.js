@@ -896,3 +896,52 @@ function findMin(nums) {
 console.log(findMin([3, 4, 5, 1, 2])); // 1
 console.log(findMin([4, 5, 6, 7, 0, 1, 2])); // 0
 console.log(findMin([11, 13, 15, 17])); // 11
+
+
+/////////////////////////////////////24////////////////////////////////////////////////
+
+
+// Search in Rotated Sorted Array — LeetCode #33
+// Modified Binary Search (O(log n))
+
+const search = (n, t) => {
+
+  let left = 0;
+  let right = n.length - 1;
+
+  // Binary search while pointers don't cross
+  while (left <= right) {
+
+    // Middle index
+    let mid = Math.floor(left + (right - left) / 2);
+
+    // If target found → return index
+    if (n[mid] === t) return mid;
+
+    // Check if LEFT half is sorted
+    if (n[left] <= n[mid]) {
+      // If target is inside this left sorted range
+      if (n[left] <= t && t <= n[mid]) {
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+
+    } else {
+      // Otherwise, the RIGHT half must be sorted
+      if (n[mid] <= t && t <= n[right]) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+  }
+
+  // Target not found
+  return -1;
+};
+
+console.log(search([3, 4, 5, 6, 1, 2], 1));  // → 4
+console.log(search([3, 5, 6, 0, 1, 2], 4));  // → -1
+console.log(search([4, 5, 6, 7, 0, 1, 2], 0)); // → 4
+console.log(search([4, 5, 6, 7, 0, 1, 2], 3)); // → -1
