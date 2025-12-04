@@ -945,3 +945,56 @@ console.log(search([3, 4, 5, 6, 1, 2], 1));  // → 4
 console.log(search([3, 5, 6, 0, 1, 2], 4));  // → -1
 console.log(search([4, 5, 6, 7, 0, 1, 2], 0)); // → 4
 console.log(search([4, 5, 6, 7, 0, 1, 2], 3)); // → -1
+
+/////////////////////////////////////24////////////////////////////////////////////////
+
+////////////////////////////////Ling List\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+// Reverse Linked List — LeetCode #206
+// Iterative 3-pointer approach
+
+// Helper: create linked list from array (for testing)
+function createList(arr) {
+  if (arr.length === 0) return null;
+  let head = { val: arr[0], next: null };
+  let curr = head;
+
+  for (let i = 1; i < arr.length; i++) {
+    curr.next = { val: arr[i], next: null };
+    curr = curr.next;
+  }
+  return head;
+}
+
+// Main function: reverse linked list
+const Input = (head) => {
+  if (!head) return null;
+
+  let prev = null;
+  let curr = head;
+
+  // Reverse by flipping pointers
+  while (curr) {
+    let nextTemp = curr.next; // Store next
+    curr.next = prev;         // Reverse pointer
+    prev = curr;              // Move prev
+    curr = nextTemp;          // Move forward
+  }
+
+  return prev; // New head
+};
+
+// Helper: print linked list
+function printList(head) {
+  let arr = [];
+  while (head) {
+    arr.push(head.val);
+    head = head.next;
+  }
+  console.log(arr);
+}
+
+
+printList(Input(createList([0, 1, 2, 3]))); // [3,2,1,0]
+printList(Input(createList([])));           // []
