@@ -998,3 +998,120 @@ function printList(head) {
 
 printList(Input(createList([0, 1, 2, 3]))); // [3,2,1,0]
 printList(Input(createList([])));           // []
+
+/////////////////////////////////25///////////////////////////////////////////////
+
+
+//--- How a linked list works
+
+//---- First, we create a Node.
+// A node stores a value and a pointer (link) to the next node. At the start, this pointer is null.
+
+//--- Second, we create a LinkedList.
+// The LinkedList keeps track of the nodes—usually by storing a reference to the first node (the head).
+
+//--- Then, when we insert values, each value is placed inside a Node.
+// The Node is like a blueprint, and the LinkedList is the container that holds and connects all the nodes together.
+/////////////////////////////////////////////////////////////////////////////////
+
+// 1 Create a Node → holds a value + link to the next node.
+
+/// 2 Create a LinkedList → holds the first node.
+
+/// 3 Add values → each value becomes a Node, and the LinkedList connects them.
+
+
+// Linked List Implementation (Add, Delete, Search, Print)
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  // ➕ Add node to the end
+  add(value) {
+    const newNode = new Node(value);
+
+    // If list is empty → new node becomes head
+    if (!this.head) {
+      this.head = newNode;
+      return;
+    }
+
+    // Otherwise traverse to the end
+    let current = this.head;
+    while (current.next) {
+      current = current.next;
+    }
+
+    current.next = newNode; // Attach new node
+  }
+
+  // 🗑 Delete node by value
+  deliction(value) {
+    if (!this.head) return;
+
+
+    if (this.head.value === value) {
+      this.head = this.head.next; // Remove head
+      return;
+    }
+
+    let current = this.head;
+
+    // Find node before the one we want to delete
+    while (current.next && current.next.value !== value) {
+      current = current.next;
+    }
+
+    // If found → skip it
+    if (current.next) {
+      current.next = current.next.next;
+    }
+  }
+
+  // Search if a value exists
+  search(value) {
+    let current = this.head;
+
+    while (current) {
+      if (current.value === value) {
+        return true;
+      }
+      current = current.next;
+    }
+
+    return false; // Not found
+  }
+
+  //  Print linked list
+  print() {
+    let current = this.head;
+    let result = "";
+
+    while (current) {
+      result += current.value + " -> ";
+      current = current.next;
+    }
+
+    console.log(result + "null");
+  }
+}
+
+// Testing
+let list = new LinkedList();
+
+list.add(10);
+list.add(20);
+list.add(30);
+list.deliction(30);
+console.log("Search 20:", list.search(20)); // true
+
+list.print(); // 10 -> 20 -> null
