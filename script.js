@@ -1115,3 +1115,80 @@ list.deliction(30);
 console.log("Search 20:", list.search(20)); // true
 
 list.print(); // 10 -> 20 -> null
+
+
+/////////////////////////////////26///////////////////////////////////////////////
+
+// 🧱 Build a linked list from array
+function list(arr) {
+  let node = { val: arr[0], next: null };
+  let curr = node;
+
+  for (let i = 1; i < arr.length; i++) {
+    curr.next = { val: arr[i], next: null };
+    curr = curr.next;
+  }
+
+  return node;
+}
+
+// Reorder List — LeetCode #143
+// Steps:
+// 1. Find middle using slow & fast pointers
+// 2. Reverse second half
+// 3. Merge both halves alternately (L1 -> Ln -> L2 -> Ln-1 ...)
+const arrange = (node) => {
+  if (!node || !node.next) return node;
+
+  // Find middle
+  let slow = node,
+    fast = node;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  //  Reverse second half starting from 'slow'
+  let prev = null;
+  let curr = slow;
+
+  while (curr) {
+    let temp = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = temp;
+  }
+
+  // prev = head of reversed second half
+  let first = node;
+  let second = prev;
+
+  //  Merge two halves alternately
+  while (second.next) {
+    let temp1 = first.next;
+    let temp2 = second.next;
+
+    first.next = second;
+    second.next = temp1;
+
+    first = temp1;
+    second = temp2;
+  }
+
+  return node;
+};
+
+//  Print linked list
+function print(head) {
+  let arr = [];
+  while (head) {
+    arr.push(head.val);
+    head = head.next;
+  }
+  return arr;
+}
+
+// Test Output
+console.log(print(arrange(list([2, 4, 6, 8]))));         // [2,8,4,6]
+console.log(print(arrange(list([2, 4, 6, 8, 10]))));     // [2,10,4,8,6]
