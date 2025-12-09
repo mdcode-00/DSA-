@@ -1192,3 +1192,56 @@ function print(head) {
 // Test Output
 console.log(print(arrange(list([2, 4, 6, 8]))));         // [2,8,4,6]
 console.log(print(arrange(list([2, 4, 6, 8, 10]))));     // [2,10,4,8,6]
+
+/////////////////////////////////27///////////////////////////////////////////////
+
+
+
+// Detect Cycle in Linked List — LeetCode #141
+// Steps:
+// 1. Use two pointers (slow moves 1 step, fast moves 2 steps)
+// 2. Advance pointers until they meet or fast reaches the end
+// 3. If slow === fast at any point → cycle exists; otherwise no cycle
+
+function list(arr) {
+  let node = { val: arr[0], next: null };
+  let curr = node;
+
+  // build linked list from array
+  for (let i = 1; i < arr.length; i++) {
+    curr.next = { val: arr[i], next: null };
+    curr = curr.next;
+  }
+  return node;
+}
+
+// check if linked list has cycle (Floyd’s algorithm)
+longOrNot = (node) => {
+  let slow = node; // moves 1 step
+  let fast = node; // moves 2 steps
+
+  // fast reaching null means no cycle
+  while (fast && fast.next) {
+    slow = slow.next;         // +1 step
+    fast = fast.next.next;    // +2 steps
+
+    // if both pointers meet → cycle exists
+    if (slow === fast) {
+      return true;
+    }
+  }
+
+  // no cycle found
+  return false;
+}
+
+// Example usage:
+
+// normal linked list → no cycle
+let jj = list([1, 2, 3, 4]);
+console.log(longOrNot(jj));   // false
+
+// create cycle manually: 3rd node points to head
+jj.next.next = jj;
+console.log(longOrNot(jj));   // true
+
