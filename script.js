@@ -1245,3 +1245,69 @@ console.log(longOrNot(jj));   // false
 jj.next.next = jj;
 console.log(longOrNot(jj));   // true
 
+
+/////////////////////////////////28///////////////////////////////////////////////
+
+// Remove N-th Node From End — LeetCode #19
+// Steps:
+// 1. Move `fast` pointer n steps ahead
+// 2. If fast becomes null → we remove the head
+// 3. Move both slow & fast until fast reaches end
+// 4. Slow will be at the node to delete; prev = node before slow
+// 5. Adjust prev.next to skip the slow node
+
+function list(arr) {
+  if (arr.length === 0) return null;
+
+  let node = { val: arr[0], next: null };
+  let curr = node;
+
+  // build linked list
+  for (let i = 1; i < arr.length; i++) {
+    curr.next = { val: arr[i], next: null };
+    curr = curr.next;
+  }
+  return node;
+}
+
+// remove Nth node from end
+removeLogic = (node, n) => {
+  let fast = node;
+  let slow = node;
+  let prev = null;
+
+  // Step 1: Move fast pointer n steps
+  for (let i = 0; i < n; i++) {
+    fast = fast.next;
+
+    // Step 2: If fast becomes null → deleting head
+    if (fast === null) {
+      return node.next;
+    }
+  }
+
+  // Step 3: Move both until fast reaches end
+  while (fast !== null) {
+    fast = fast.next;
+    prev = slow;
+    slow = slow.next;
+  }
+
+  // Step 4: Delete slow node
+  prev.next = slow.next;
+
+  // Step 5: return updated list
+  return node;
+};
+
+function print(node) {
+  let arr = [];
+  while (node) {
+    arr.push(node.val);
+    node = node.next;
+  }
+  return arr;
+}
+
+// Example
+print(removeLogic(list([1, 2, 3, 4]), 2));  // [1, 2, 4]
