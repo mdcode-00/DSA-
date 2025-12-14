@@ -1311,3 +1311,49 @@ function print(node) {
 
 // Example
 print(removeLogic(list([1, 2, 3, 4]), 2));  // [1, 2, 4]
+
+
+/////////////////////////////////Trees///////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////29///////////////////////////////////////////////
+
+// Invert Binary Tree — LeetCode #226
+// Steps:
+// 1. If current node is null → return null
+// 2. Recursively invert left subtree
+// 3. Recursively invert right subtree
+// 4. Swap left and right children
+// 5. Return current node
+
+function tree(arr, i = 0) {
+  // if index out of range or value is null
+  if (i >= arr.length || arr[i] === null) return null;
+
+  // create node and build children recursively
+  return {
+    val: arr[i],
+    left: tree(arr, 2 * i + 1),
+    right: tree(arr, 2 * i + 2)
+  };
+}
+
+// invert binary tree
+reverse = (node) => {
+  if (node === null) return null;
+
+  // recursively invert left & right subtrees
+  let left = reverse(node.left);
+  let right = reverse(node.right);
+
+  // swap children
+  node.left = right;
+  node.right = left;
+
+  return node;
+};
+
+// Example
+let root = tree([1, 2, 3, null, null, 4]);
+console.log(reverse(root));
+
+
