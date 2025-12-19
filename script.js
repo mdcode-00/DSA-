@@ -1356,4 +1356,101 @@ reverse = (node) => {
 let root = tree([1, 2, 3, null, null, 4]);
 console.log(reverse(root));
 
+/////////////////////////////////30///////////////////////////////////////////////
 
+
+// Same Tree — LeetCode #100
+// Steps:
+// 1. If both nodes are null → trees are identical
+// 2. If one is null and the other is not → not identical
+// 3. If values differ → not identical
+// 4. Recursively compare left subtrees
+// 5. Recursively compare right subtrees
+// 6. Return true only if both sides match
+
+function tree(arr, i = 0) {
+  // index out of range or null value
+  if (i >= arr.length || arr[i] === null) return null;
+
+  // build tree recursively
+  return {
+    val: arr[i],
+    left: tree(arr, 2 * i + 1),
+    right: tree(arr, 2 * i + 2)
+  };
+}
+
+// check if two trees are same
+same = (a, b) => {
+
+  // both nodes are null
+  if (a === null && b === null) return true;
+
+  // one node is null
+  if (a === null || b === null) return false;
+
+  // values do not match
+  if (a.val !== b.val) return false;
+
+  // compare left and right subtrees
+  let left = same(a.left, b.left);
+  let right = same(a.right, b.right);
+
+  return left && right;
+};
+
+console.log(same(tree([4, 7]), tree([4, null, 7]))); // false
+console.log(same(tree([1, 2, 3]), tree([1, 2, 3]))); // true
+console.log(same(tree([1, 2, 3]), tree([1, 3, 2]))); // false
+
+/////////////////////////////////31///////////////////////////////////////////////
+
+
+// Subtree of Another Tree — LeetCode #572
+// Uses helper function "same" to compare trees
+// Steps:
+// 1. same(a, b)
+//    - If both null → true
+//    - If one null → false
+//    - If values differ → false
+//    - Recursively check left + right
+//
+// 2. subtree(root, subRoot)
+//    - If main tree node is null → subRoot cannot be inside → return false
+//    - If current node matches subRoot via same() → return true
+//    - Otherwise search in left and right subtrees
+//
+// 3. Return true if any subtree matches subRoot
+
+function tree(arr, i = 0) {
+  if (i >= arr.length || arr[i] === null) return null;
+
+  return {
+    val: arr[i],
+    left: tree(arr, 2 * i + 1),
+    right: tree(arr, 2 * i + 2)
+  };
+}
+
+// Check if 'b' is subtree of 'a'
+subtree = (a, b) => {
+  if (a === null) return false;
+  if (b === null) return true;
+
+  // If current node matches b completely
+  if (same(a, b)) return true;
+
+  // Otherwise check left and right subtree
+  return subtree(a.left, b) || subtree(a.right, b);
+};
+
+// Examples
+console.log(
+  subtree(tree([1, 2, 3, 4, 5]),
+    tree([2, 4, 5]))
+); // → true
+
+console.log(
+  subtree(tree([1, 2, 3]),
+    tree([2, 3]))
+); // → false
